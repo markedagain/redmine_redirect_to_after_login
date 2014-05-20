@@ -11,12 +11,10 @@ Redmine::Plugin.register :redirect_to_after_login do
   settings(:default => { 'redirect' => '' }, :partial => 'settings/redirect_to_after_login_settings' )
 end
 
-module Hooks
-  class Hooks < Redmine::Hook::ViewListener
-     def controller_account_success_authentication_after(context={})
-         redirect_url = Setting[:plugin_redirect_to_after_login][:redirect]
-         context[:request].params[:back_url] = redirect_url
-         return ''
-     end
-  end
+class Hooks < Redmine::Hook::ViewListener
+   def controller_account_success_authentication_after(context={})
+       redirect_url = Setting[:plugin_redirect_to_after_login][:redirect]
+       context[:request].params[:back_url] = redirect_url
+       return ''
+   end
 end
